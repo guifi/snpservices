@@ -117,13 +117,17 @@ function snmp($device) {
 	// if no ipv4, nothing;
 	if (!$ipv4)
 	  return;
-	  
+
+        
+        $mrtg = '#';
+
 	$mrtg .= 
 	  $device->getAttribute('title').','.
 	  $ipv4;
 	if (count($snmp))
 	  $mrtg .= ','.implode('|',$snmp);
-	  
+        
+        $mrtg .= ','.$device->getAttribute('status');	  
 	return $mrtg;
 }
 
@@ -224,7 +228,6 @@ function nodewalk($node,$SNPServer,&$arr) {
 
 function devicewalk($device,$SNPServer,&$arr,$links = true) {
 	$id = $device->getAttribute('id');
-	
 	if (isset($arr['device'][$id]))
 	  return;
 	 

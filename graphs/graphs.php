@@ -20,6 +20,7 @@ function cmp_traffic($a, $b)
 }
 
 $type    = $_GET['type'];
+$format    = $_GET['format'];
 
 if ($type == 'availability') {  
 	// Just creating the availability PNG, not a graph
@@ -43,7 +44,7 @@ if ($type == 'availability') {
       $var['available'] = 'n/a';
       $var['last'] = 'Down';
 	}
-	
+
 	// create a image
 	if ($format=='short')
 		$pixlen=77;
