@@ -12,13 +12,26 @@ if ($mlast)
   $last = fgets($mlast);
 else 
   $last = 0;
-print "Last: ".date('Y/m/d H:i:s',(int)$last)."\n";
-if (($last) and ($now < ($last +  (60 * 60)))) {
+print "Last: ".date('Y/m/d H:i:s',((int)$last)+(60*60))."\n";
+print "Now: ".date('Y/m/d H:i:s',(int)$now)."\n";
+print "ServerId: ".$SNPGraphServerId."\n";
+#
+# Looks if the files has been refreshed at least between 60 an 90 mins ago
+# range 60..90 depends on $SNPGraphServerId mod 30
+# if is still fresh, does not even looks to the server to check if it has changed
+#
+$secs = $SNPGraphServerId % 285;
+$mins = $SNPGraphServerId % 30;
+$nanos = $SNPGraphServerId % 10;
+if (($last) and ($now < ($last +  ((60 + $mins) * 60)))) {
   fclose($mlast);
   echo "Still fresh.\n";
   exit();
 }
 
+#
+# Local file is not fresh, so looks to the server and cheks if has changed
+#
 $hlastnow = @fopen($SNPDataServer_url."/guifi/refresh/cnml", "r") or die('Error reading changes\n');
 $last_now = fgets($hlastnow);
 fclose($hlastnow);
@@ -31,7 +44,17 @@ if (($hlast) and ($last_now == fgets($hlast))) {
   fclose($hlast);
   exit();
 }
-print $last_now;
+print "Sever CNML dated as: ".date('Y/m/d H:i:s',$last_now)."\n";
+
+#
+# Server CNML has changed, so going to call the server for the new file
+# Befoge calling, sleep $SNPGrahServerId mod 285 (4 min, 45 segs) to spread across that
+# timeslot.
+#
+
+print "Waiting for  ".$secs.".".$nanos." seconds\n";
+time_nanosleep($secs,($nanos * 10000000));
+print date('Y/m/d H:i:s')."\n";
 
 $hf = @fopen($MRTGConfigSource,"r") or die('Error reading MRTG csv input\n"');
 $cf = @fopen('../data/mrtg.cfg','w+');
