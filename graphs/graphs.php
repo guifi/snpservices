@@ -20,7 +20,7 @@ function cmp_traffic($a, $b)
 }
 
 $type    = $_GET['type'];
-$format    = $_GET['format'];
+$format  = (isset($_GET['format']))?$_GET['format']:'';
 
 if ($type == 'availability') {  
 	// Just creating the availability PNG, not a graph
@@ -231,7 +231,7 @@ switch ($type)
           
         usort($radios,"cmp_traffic");
         
-        $total = array();
+        $total = array('total' => 0.0, 'max' => 0.0);
         foreach ($radios as $r) {
           $total['total'] += $r['traffic'];
           $total['max'] += $r['max'];

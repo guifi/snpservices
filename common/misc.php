@@ -1,5 +1,7 @@
 <?php
 
+include_once("rrdtool.php");
+
 /* **
  *  * _guifi_tostrunits convert a number to string format in B,KB,MB...
  * **/
