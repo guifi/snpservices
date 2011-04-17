@@ -314,19 +314,27 @@ foreach ($entries as $entry) {
 //$time_x = microtime(true);
 //print "guifi.cnml graph server XPATH ".($time_x - $time_start)."\n";
 
+
+if (!empty($arr['linked'])) {
 // Cleaning linked already filled
 foreach ($arr['linked'] as $k=>$foo)
   if (isset($arr['device'][$k]))
     unset($arr['linked'][$k]);
 
-// Query for linked devices
-$xpath = new DOMXPath($cnml);
-$query = '//device[@id='.implode(' or @id=',array_keys($arr['linked'])).']';
-$entries = $xpath->query($query);
-foreach ($entries as $entry) {
-  devicewalk($entry,$SNPServer,$arr,false);
+  // Query for linked devices
+  $xpath = new DOMXPath($cnml);
+  $linkid = implode(' or @id=',array_keys($arr['linked']));
+  if (!empty($linkid)) {
+    $query = '//device[@id='.$linkid.']';
+    $entries = $xpath->query($query);
+    if (!empty($entries)){
+      foreach ($entries as $entry) {
+        devicewalk($entry,$SNPServer,$arr,false);
+      }
+    }
+  }
 }
-    
+
 //$time_1 = microtime(true);
 //print "guifi.cnml walked ".($time_1 - $time_start)." got ".count($arr['device'])." devices (".count($arr['linked'])." linked)\n";
 //print_r($arr);
@@ -334,7 +342,8 @@ foreach ($entries as $entry) {
 //header('Content-type: application/csv');
 
 // Going to dump the output
-foreach($arr['device'] as $id=>$foo) {
+if (!empty($arr['device'])) 
+      foreach($arr['device'] as $id=>$foo) {
 	if ($foo != null)
 	  if (isset($_GET['list']))  {
 	  	$names = array();
