@@ -27,13 +27,14 @@
   echo "Getting CNML file\n";
   $hcnml = @fopen($SNPDataServer_url."/guifi/cnml/".$rootZone."/detail", "r")
     or die ('Error redaing CNML source\n');
-  $wcnml = @fopen("../data/guifi.cnml", "w");
+  $wcnml = @fopen("../data/guifi.cnml.tmp", "w");
   while (!feof($hcnml)) {
     $buffer = fgets($hcnml, 4096);
     fwrite($wcnml,$buffer);
   }
   fclose($hcnml);
   fclose($wcnml);
+  exec ("/bin/cp ../data/guifi.cnml.tmp ../data/guifi.cnml");
 
   $hlast= @fopen("/tmp/last_update.cnml", "w") or die('Error!');
   fwrite($hlast,$last_now);
