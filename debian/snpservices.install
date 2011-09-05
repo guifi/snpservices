@@ -1,0 +1,10 @@
+common usr/share/snpservices/
+graphs usr/share/snpservices/
+misc usr/share/snpservices/
+services usr/share/snpservices/
+index.php usr/share/snpservices/
+data var/lib/snpservices/
+tmp var/lib/snpservices/
+common/config.php.template /etc/snpservices/
+
+

@@ -1,0 +1,50 @@
+snpservices (0.2.1-17) stable; urgency=low
+
+  * Remove some obsolete package dependances
+  * Fix some graphs.hpp warnigns.
+
+ -- Miquel Martos <miquel.martos@guifi.net>  Mon, 17 Dec 2010 00:45:54 +0200
+
+snpservices (0.2.1-16) stable; urgency=low
+
+  * Add conflict dependancy with php5-rrdtool
+ 
+ -- Miquel Martos <miquel.martos@guifi.net>  Mon, 13 Dec 2010 22:57:54 +0200
+
+snpservices (0.2.1-0) unstable; urgency=low
+
+  * Remove compile php-rrdtool package.
+  * Introduced on code some funcion to call rrdtool to avoid php5-rrdtool dependancy.
+
+ -- Miquel Martos <miquel.martos@guifi.net>  Mon, 13 Dec 2010 20:00:54 +0200
+
+snpservices (0.2.0-2) unstable; urgency=low
+
+  * Compile php-rrdtool package. And setup Cron to install it before installation.
+
+ -- Miquel Martos <miquelmartos@gmail.com>  Wed, 23 Jan 2009 22:40:54 +0200
+
+snpservices (0.2.0-1) unstable; urgency=low
+
+  * Update to snpservices 2.0.
+
+ -- Miquel Martos <miquelmartos@gmail.com>  Thu, 22 Jan 2009 20:46:54 +0200
+
+snpservices (0.0.152-3) unstable; urgency=low
+
+  * Fixed bug in logrotate, first rotation forced during post installation
+
+ -- Carles Guadall Blancafort <carles@viladelpingui.net>  Tue, 18 Sep 2007 20:46:54 +0200
+
+snpservices (0.0.152-2) unstable; urgency=low
+
+  * Fixed bug in logrotate.d config
+
+ -- Carles Guadall Blancafort <carles@viladelpingui.net>  Sat, 25 Aug 2007 18:45:15 +0200
+
+snpservices (0.0.152-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Carles Guadall Blancafort <carles@viladelpingui.net>  Fri, 17 Aug 2007 00:12:29 +0200
+

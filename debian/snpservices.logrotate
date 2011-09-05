@@ -1,0 +1,17 @@
+/var/log/snpservices/mrtg.log {
+	daily
+	missingok
+	rotate 7
+	compress
+#	notifempty
+	create 640 root root
+}
+
+/var/log/snpservices/mrtgccfg.log {
+	daily
+	missingok
+	rotate 7
+	compress
+#	notifempty
+	create 640 root root
+}

@@ -1,0 +1,156 @@
+#! /bin/sh
+#
+# $Id$ 
+#
+
+set -e
+
+configfile='/etc/snpservices/config.php';
+tmpfile=`/bin/tempfile -m 644`;
+
+case $1 in
+	configure|reconfigure)
+
+	. /usr/share/debconf/confmodule
+	db_version 2.0 || [ $? -lt 30 ]
+
+		
+	db_get snpservices/SNPGraphServerId
+	SNPGraphServerId=$RET
+	db_get snpservices/rootZone
+	rootZone=$RET
+	db_get snpservices/SNPDataServerurl
+	SNPDataServerurl=$RET
+	db_get snpservices/MRTGConfigSource
+	MRTGConfigSource=$RET
+	db_get snpservices/CNMLSource
+	CNMLSource=$RET
+	db_get snpservices/rrddbpath
+	rrddbpath=$RET
+	db_get snpservices/rrdimgpath
+	rrdimgpath=$RET
+	db_get snpservices/rrdversion
+	rrdversion=$RET
+	db_get snpservices/forcefetch
+	forcefetch=$RET
+
+
+	/bin/cat << EOT > $tmpfile
+<?php
+
+// snp_pat: full directory where snp services are located
+\$snp_path='/var/www/snpservices';
+
+// SNPGraphServerID: Default Graph Server ID
+\$SNPGraphServerId = $SNPGraphServerId;
+
+// rootZone: which is the ROOT zone
+\$rootZone = $rootZone;
+
+// SNPDataServer_url: without ending backslash, the url where the data is
+\$SNPDataServer_url =  '$SNPDataServerurl';
+
+// MRTGConfigSource: mrtg csv data
+// As a input, could be either a local (to be created from
+// cached CNML file, or remote
+// \$MRTGConfigSource='http://www.guifi.net/snpservices/graphs/cnml2mrtgcsv.php';
+\$MRTGConfigSource='$MRTGConfigSource'.\$SNPGraphServerId;
+// \$MRTGConfigSource='/var/lib/snpservices/data/guifi_mrtg.csv';
+
+// CNMLSource: url for CNML node query, use sprintf syntax
+// MySQL-drupal source
+// \$CNMLSource='http://proves.elserrat.guifi.net/guifi/cnml/%s/node';
+// Cached CNML source (prefered)
+\$CNMLSource='$CNMLSource';
+
+\$CNMLData='/var/lib/snpservices/data/guifi.cnml';
+
+// rrdtool parameters
+\$rrdtool_path='/usr/bin/rrdtool';
+\$rrddb_path='$rrddbpath';
+\$rrdimg_path='$rrdimgpath';
+
+// which version does have this server? 
+// currently supported versions are:
+// 1.2
+// 1.3
+\$rrdtool_version = '$rrdversion';
+
+// mrtg local header
+\$rrdtool_header='# PathAdd: /usr/local/rrdtool-1.2.12/bin
+# LibAdd: /usr/local/rrdtool-1.2.12/lib/perl/5.8.8/i386-linux-thread-multi
+HtmlDir: %s
+ImageDir: %s 
+LogDir: %s
+LogFormat: rrdtool
+ThreshDir: %s
+Forks: 25
+';
+
+// mrtg ping template
+\$mrtg_ping_template ='Title[%s_ping]: Temps del ping de %s 
+PageTop[%s_ping]: <H1>Lat&egrave;ncia %s</H1>
+     <TABLE
+     <TR><TD>System:</TD>     <TD>%s</TD></TR>
+     <TR><TD>Maintainer:</TD> <TD>guifi@guifi.net</TD></TR>
+     <TR><TD>Description:</TD><TD>ping</TD></TR>
+     <TR><TD>IP:</TD>         <TD>%s</TD></TR>
+     </TABLE>
+Target[%s_ping]: \`/usr/share/snpservices/common/ping.sh %s\`
+MaxBytes[%s_ping]: 2000
+Options[%s_ping]: growright,unknaszero,nopercent,gauge
+LegendI[%s_ping]: Perduts %
+LegendO[%s_ping]: Temps mig
+Legend1[%s_ping]: Temps max. en ms
+Legend2[%s_ping]: Temps min. en ms
+YLegend[%s_ping]: RTT (ms)
+';
+
+\$mrtg_traffic_template='Target[%s_traf]: %s:public@%s:
+SetEnv[%s_traf]: MRTG_INT_IP="%s" MRTG_INT_DESCR="%s"
+MaxBytes[%s_traf]: 3000000
+Title[%s_traf]: Trafic a %s de %s
+PageTop[%s_traf]: <H1>Tr&agrave;fic a %s de %s</H1>
+     <TABLE>
+     <TR><TD>System:</TD>     <TD>%s</TD></TR>
+     <TR><TD>Maintainer:</TD> <TD>guifi@guifi.net</TD></TR>
+     <TR><TD>Description:</TD><TD>%s</TD></TR>
+     <TR><TD>Max Speed:</TD>  <TD>30.0 Mbits/s</TD></TR>
+     </TABLE>
+';
+
+
+?>
+EOT
+
+	/usr/bin/ucf --three-way --debconf-ok $tmpfile $configfile
+	/bin/rm $tmpfile
+
+	if [ $forcefetch ]
+	then
+		echo "Fetching mrtg.cfg";
+		if [ -r /tmp/last_update.mrtg ] && [ -r /tmp/last_mrtg ]; then rm /tmp/last_update.mrtg; rm /tmp/last_mrtg; fi;
+		cd /var/www/snpservices/graphs; /usr/bin/php mrtgcsv2mrtgcfg.php >> /var/log/snpservices/mrtgccfg.log 2>&1;
+	fi
+	# Force logrotate
+	touch /var/log/snpservices/mrtg.log
+	touch /var/log/snpservices/mrtgccfg.log
+	/usr/sbin/logrotate -f /etc/logrotate.d/snpservices
+
+	if /bin/pidof /usr/sbin/apache2 >/dev/null 2>&1; then
+		invoke-rc.d apache2 force-reload
+	fi
+
+	exit 0
+	;;
+
+	*)
+		echo "postinst called with unknown argument \`$1'" 1>&2
+		exit 1
+		;;
+esac
+
+#DEBHELPER#
+
+exit 0
+

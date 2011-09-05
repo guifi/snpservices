@@ -1,0 +1,7 @@
+etc/snpservices
+usr/share/doc/snpservices
+usr/share/snpservices
+var/lib/snpservices/rrdb
+var/lib/snpservices/rrimg
+var/log/snpservices
+

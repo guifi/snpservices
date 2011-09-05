@@ -1,0 +1,35 @@
+This package was debianized by Carles Guadall Blancafort <carles@viladelpingui.net> on
+Fri, 17 Aug 2007 00:12:29 +0200.
+
+It was downloaded from https://svn.projectes.lafarga.cat/svn/guifi/snpservices
+
+Upstream Author: <put author(s) name and email here>
+
+Copyright: 2007 Guifi.net
+
+License:
+
+   This package is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; version 2 dated June, 1991.
+
+   This package is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this package; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+   02110-1301, USA.
+
+On Debian systems, the complete text of the GNU General
+Public License can be found in `/usr/share/common-licenses/GPL'.
+
+The Debian packaging is (C) 2007, Carles Guadall Blancafort <carles@viladelpingui.net> and
+is licensed under the GPL, see `/usr/share/common-licenses/GPL'.
+
+
+# Please also look if there are files or directories which have a
+# different copyright/license attached and list them here.
+
