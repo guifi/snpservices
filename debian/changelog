@@ -1,3 +1,8 @@
+snpservices (0.2.1-18) stable; urgency=low
+
+  * Fix: replaced php split function to explode on rrdtool.php file ( Again , sorry! )
+ -- Miquel Martos <miquel.martos@guifi.net>  Mon, 05 Sep 2011 17:41:54 +0200
+
 snpservices (0.2.1-17) stable; urgency=low
 
   * Remove some obsolete package dependances

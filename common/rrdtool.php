@@ -35,19 +35,19 @@ function rrd_fetch($fname,$opts,$nopts) {
  $tmp=preg_replace('/^\s+/', '',$tmp);
  $tmp=preg_replace('/\s+$/', '',$tmp);
 
- $result['ds_namv']=split(' ',$tmp);
+ $result['ds_namv']=explode(' ',$tmp);
  $result['ds_cnt']=count($result['ds_namv']);
  unset($retstr[0]);
  unset($retstr[1]);
 
  foreach($retstr as $line) {
-  list($ltime,$lvalues)=split(': ',$line);
+  list($ltime,$lvalues)=explode(': ',$line);
   if ($result['start']!=0 && $result['step']==0)
    $result['step']=$ltime-$result['start'];
   if ($result['start']==0)
    $result['start']=$ltime;
   $result['end']=$ltime;
-  foreach(split(' ',$lvalues) as $value)
+  foreach(explode(' ',$lvalues) as $value)
    $result['data'][]=$value;
  }
 
