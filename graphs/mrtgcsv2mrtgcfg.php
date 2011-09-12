@@ -73,7 +73,7 @@ while ( $buffer = fgets($hf, 4096) ) {
                  $dev[0] = $dev[0];
                  $dev[1] = $dev[1];
                  $dev[2] = $dev[2];
-                 $dev[3] = 'eth0';
+                 $dev[3] = 'eth0;';
                  $dev[4] = $dev[3];
   }
   fputs($cf,sprintf($mrtg_ping_template,

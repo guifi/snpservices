@@ -1,3 +1,8 @@
+snpservices (0.2.1-20) stable; urgency=low
+
+  * Typo ;P
+ -- Miquel Martos <miquel.martos@guifi.net>  Mon, 12 Sep 2011 18:54:54 +0200
+
 snpservices (0.2.1-19) stable; urgency=low
 
   * Now, only "working | Testing" nodes can be graphed/plotted?? Thanks tictacbom for reporting and patch!
