@@ -10,7 +10,7 @@ $now = time();
 $mlast= @fopen("/tmp/last_mrtg", "r");
 if ($mlast)
   $last = fgets($mlast);
-else 
+else
   $last = 0;
 print "Last: ".date('Y/m/d H:i:s',((int)$last)+(60*60))."\n";
 print "Now: ".date('Y/m/d H:i:s',(int)$now)."\n";
@@ -62,13 +62,20 @@ $cf = @fopen('../data/mrtg.cfg','w+');
 fputs($cf,sprintf($rrdtool_header,$rrdimg_path,$rrdimg_path,$rrddb_path,$rrddb_path));
 
 while ( $buffer = fgets($hf, 4096) ) {
-	if (substr($buffer,0,1) == '#')
-	  continue;
-	  
-//  $buffer = substr($buffer,0,-1);
+  $node_line_array = explode(",",$buffer);
+  $line = $node_line_array[count($node_line_array) - 1];
+  if ( substr($buffer,0,1) == '#' || $line == "Planned\n" || $line == "Dropped\n" || $line == "Building\n" || $line == "Reserved\n" )
+          continue;
+
   $buffer = str_replace("\n","",$buffer);
   $dev=explode(',',$buffer);
-
+  if ( count($dev) != 5 ) {
+                 $dev[0] = $dev[0];
+                 $dev[1] = $dev[1];
+                 $dev[2] = $dev[2];
+                 $dev[3] = 'eth0';
+                 $dev[4] = $dev[3];
+  }
   fputs($cf,sprintf($mrtg_ping_template,
                  $dev[0],
                  $dev[1],
@@ -87,10 +94,7 @@ while ( $buffer = fgets($hf, 4096) ) {
                  $dev[0],
                  $dev[0])
        );
-  if (!isset($dev[3]) or empty($dev[3]))
-    continue;
-  $t = explode('|',$dev[3]); 
-  //print_r($t);
+  $t = explode('|',$dev[3]);
 
   foreach ($t as $k=>$r)  {
     // is the snmp Index given??
@@ -124,9 +128,6 @@ while ( $buffer = fgets($hf, 4096) ) {
          );
 
   } // foreach interface
-  
-                 
-  
 }
 fclose($hf);
 fclose($cf);

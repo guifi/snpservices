@@ -1,3 +1,9 @@
+snpservices (0.2.1-19) stable; urgency=low
+
+  * Now, only "working | Testing" nodes can be graphed/plotted?? Thanks tictacbom for reporting and patch!
+  * Some fixes on devices whitout any radio and device without supported device model.
+ -- Miquel Martos <miquel.martos@guifi.net>  Mon, 12 Sep 2011 18:18:54 +0200
+
 snpservices (0.2.1-18) stable; urgency=low
 
   * Fix: replaced php split function to explode on rrdtool.php file ( Again , sorry! )
