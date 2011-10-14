@@ -1,3 +1,9 @@
+snpservices (0.2.1-21) stable; urgency=low
+
+  * Fix dependenancy apache2
+  * Add ubuntu-guinux tools
+ -- Miquel Martos <miquel.martos@guifi.net>  Fri, 14 Oct 2011 17:15:54 +0200
+
 snpservices (0.2.1-20) stable; urgency=low
 
   * Typo ;P

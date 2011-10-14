@@ -8,7 +8,7 @@ set -e
 
 case "$1" in
 	purge)
-		
+
 		if [ -e /usr/share/debconf/confmodule ] ; then
 
 			. /usr/share/debconf/confmodule
@@ -16,7 +16,7 @@ case "$1" in
 
 		fi
 
-		if [ -x /usr/bin/ucf ] ; then 
+		if [ -x /usr/bin/ucf ] ; then
 
 			/usr/bin/ucf --purge /etc/snpservices/config.php
 			/bin/rm -rf /etc/snpservices/
