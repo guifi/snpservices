@@ -1,4 +1,4 @@
-snpservices (0.2.1-21) stable; urgency=low
+snpservices (0.2.1-21) guifi; urgency=low
 
   * Fix dependenancy apache2
   * Add ubuntu-guinux tools
