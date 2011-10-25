@@ -1,0 +1,85 @@
+<?php
+
+// snp_pat: full directory where snp services are located
+$snp_path='/var/www/snpservices';
+
+// SNPGraphServerID: Default Graph Server ID
+$SNPGraphServerId = "%SNPId%";
+
+// rootZone: which is the ROOT zone
+$rootZone = 3671;
+
+// SNPDataServer_url: without ending backslash, the url where the data is
+$SNPDataServer_url =  "%SNPUrl%";
+
+// MRTGConfigSource: mrtg csv data
+// As a input, could be either a local (to be created from
+// cached CNML file, or remote
+// $MRTGConfigSource='http://www.guifi.net/snpservices/graphs/cnml2mrtgcsv.php';
+$MRTGConfigSource='http://www.guifi.net/snpservices/graphs/cnml2mrtgcsv.php?server='.$SNPGraphServerId;
+// $MRTGConfigSource='/var/lib/snpservices/data/guifi_mrtg.csv';
+
+// CNMLSource: url for CNML node query, use sprintf syntax
+// MySQL-drupal source
+// $CNMLSource='http://proves.elserrat.guifi.net/guifi/cnml/%s/node';
+// Cached CNML source (prefered)
+$CNMLSource='http://www.guifi.net/snpservices/common/qnodes.php?nodes=%s';
+
+$CNMLData='/var/lib/snpservices/data/guifi.cnml';
+
+// rrdtool parameters
+$rrdtool_path='/usr/bin/rrdtool';
+$rrddb_path='/var/lib/snpservices/rrdb/';
+$rrdimg_path='/var/lib/snpservices/rrimg/';
+
+// which version does have this server? 
+// currently supported versions are:
+// 1.2
+// 1.3
+$rrdtool_version = '1.3';
+
+// mrtg local header
+$rrdtool_header='# PathAdd: /usr/local/rrdtool-1.2.12/bin
+# LibAdd: /usr/local/rrdtool-1.2.12/lib/perl/5.8.8/i386-linux-thread-multi
+HtmlDir: %s
+ImageDir: %s 
+LogDir: %s
+LogFormat: rrdtool
+ThreshDir: %s
+Forks: 25
+';
+
+// mrtg ping template
+$mrtg_ping_template ='Title[%s_ping]: Temps del ping de %s 
+PageTop[%s_ping]: <H1>Lat&egrave;ncia %s</H1>
+     <TABLE
+     <TR><TD>System:</TD>     <TD>%s</TD></TR>
+     <TR><TD>Maintainer:</TD> <TD>guifi@guifi.net</TD></TR>
+     <TR><TD>Description:</TD><TD>ping</TD></TR>
+     <TR><TD>IP:</TD>         <TD>%s</TD></TR>
+     </TABLE>
+Target[%s_ping]: `/usr/share/snpservices/common/ping.sh %s`
+MaxBytes[%s_ping]: 2000
+Options[%s_ping]: growright,unknaszero,nopercent,gauge
+LegendI[%s_ping]: Perduts %
+LegendO[%s_ping]: Temps mig
+Legend1[%s_ping]: Temps max. en ms
+Legend2[%s_ping]: Temps min. en ms
+YLegend[%s_ping]: RTT (ms)
+';
+
+$mrtg_traffic_template='Target[%s_traf]: %s:public@%s:
+SetEnv[%s_traf]: MRTG_INT_IP="%s" MRTG_INT_DESCR="%s"
+MaxBytes[%s_traf]: 3000000
+Title[%s_traf]: Trafic a %s de %s
+PageTop[%s_traf]: <H1>Tr&agrave;fic a %s de %s</H1>
+     <TABLE>
+     <TR><TD>System:</TD>     <TD>%s</TD></TR>
+     <TR><TD>Maintainer:</TD> <TD>guifi@guifi.net</TD></TR>
+     <TR><TD>Description:</TD><TD>%s</TD></TR>
+     <TR><TD>Max Speed:</TD>  <TD>30.0 Mbits/s</TD></TR>
+     </TABLE>
+';
+
+
+?>

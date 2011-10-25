@@ -38,7 +38,7 @@ case $1 in
 <?php
 
 // snp_pat: full directory where snp services are located
-\$snp_path='/var/www/snpservices';
+\$snp_path='/usr/share/snpservices';
 
 // SNPGraphServerID: Default Graph Server ID
 \$SNPGraphServerId = $SNPGraphServerId;
@@ -129,7 +129,7 @@ EOT
 	then
 		echo "Fetching mrtg.cfg";
 		if [ -r /tmp/last_update.mrtg ] && [ -r /tmp/last_mrtg ]; then rm /tmp/last_update.mrtg; rm /tmp/last_mrtg; fi;
-		cd /var/www/snpservices/graphs; /usr/bin/php mrtgcsv2mrtgcfg.php >> /var/log/snpservices/mrtgccfg.log 2>&1;
+		cd /usr/share/snpservices/graphs; /usr/bin/php mrtgcsv2mrtgcfg.php >> /var/log/snpservices/mrtgccfg.log 2>&1;
 	fi
 	# Force logrotate
 	touch /var/log/snpservices/mrtg.log

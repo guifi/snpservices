@@ -6,7 +6,7 @@ include /usr/share/cdbs/1/rules/debhelper.mk
 # Add here any variable or target overrides you need.
 
 DEB_FIXPERMS_EXCLUDE := usr/share/snpservices var/lib/snpservices
-DEB_DH_LINK_ARGS := /usr/share/snpservices /var/www/snpservices /etc/snpservices/config.php /usr/share/snpservices/common/config.php /var/lib/snpservices/data/mrtg.cfg /usr/share/snpservices/data/mrtg.cfg /var/lib/snpservices/tmp /usr/share/snpservices/tmp
+DEB_DH_LINK_ARGS := /etc/snpservices/config.php /usr/share/snpservices/common/config.php /var/lib/snpservices/data/mrtg.cfg /usr/share/snpservices/data/mrtg.cfg /var/lib/snpservices/tmp /usr/share/snpservices/tmp
 
 # chown everything to nobody:nogroup to make suphp happy
 common-binary-post-install-indep::
