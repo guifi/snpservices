@@ -324,7 +324,7 @@ function graph_main() {
 		$AXIS = 8;	
 	}
 	
-	(isset($rrdtool_version) and ($rrdtool_version == '1.3')) ?
+	(isset($rrdtool_version) and ($rrdtool_version >= '1.3')) ?
 			$fonts = sprintf('--font DEFAULT:%d:Arial --font LEGEND:%d:Courier --font AXIS:%d:Arial',$DEFAULT,$LEGEND,$AXIS) :
 				$fonts = sprintf('--font DEFAULT:%d: --font LEGEND:%d: --font AXIS:%d:',$DEFAULT,$LEGEND,$AXIS);
 			

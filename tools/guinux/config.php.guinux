@@ -36,6 +36,7 @@ $rrdimg_path='/var/lib/snpservices/rrimg/';
 // currently supported versions are:
 // 1.2
 // 1.3
+// 1.4 (we still have not tested it deeply)
 $rrdtool_version = '1.3';
 
 // mrtg local header
