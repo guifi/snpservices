@@ -108,7 +108,7 @@ YLegend[%s_ping]: RTT (ms)
 
 \$mrtg_traffic_template='Target[%s_traf]: %s:public@%s:
 SetEnv[%s_traf]: MRTG_INT_IP="%s" MRTG_INT_DESCR="%s"
-MaxBytes[%s_traf]: 3000000
+MaxBytes[%s_traf]: 104857600
 Title[%s_traf]: Trafic a %s de %s
 PageTop[%s_traf]: <H1>Tr&agrave;fic a %s de %s</H1>
      <TABLE>
