@@ -70,13 +70,13 @@ YLegend[%s_ping]: RTT (ms)
 $mrtg_traffic_template='Target[%s_traf]: %s:public@%s:
 SetEnv[%s_traf]: MRTG_INT_IP="%s" MRTG_INT_DESCR="%s"
 MaxBytes[%s_traf]: 104857600
-Title[%s_traf]: Trafic a %s de %s
-PageTop[%s_traf]: <H1>Tr&agrave;fic a %s de %s</H1>
+Title[%s_traf]: Tr&agrave;nsit a %s de %s
+PageTop[%s_traf]: <H1>Tr&agrave;nsit a %s de %s</H1>
      <TABLE>
      <TR><TD>System:</TD>     <TD>%s</TD></TR>
      <TR><TD>Maintainer:</TD> <TD>guifi@guifi.net</TD></TR>
      <TR><TD>Description:</TD><TD>%s</TD></TR>
-     <TR><TD>Max Speed:</TD>  <TD>30.0 Mbits/s</TD></TR>
+     <TR><TD>Max Speed:</TD>  <TD>100.0 Mbytes/s</TD></TR>
      </TABLE>
 ';
 

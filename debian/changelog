@@ -1,3 +1,13 @@
+snpservices (0.2.1-28) guifi; urgency=low
+
+  * Fix Typo!
+ -- Miquel Martos <miquel.martos@guifi.net>  Tue, 6 Mar 2012 23:12:54 +0200
+
+snpservices (0.2.1-27) guifi; urgency=low
+
+  * Fix "MaxBytes" value! from 3M Byte/s to 100 MByte/s on installer!
+ -- Miquel Martos <miquel.martos@guifi.net>  Tue, 6 Mar 2012 23:04:54 +0200
+
 snpservices (0.2.1-26) guifi; urgency=low
 
   * Fix "MaxBytes" value! from 3M Byte/s to 100 MByte/s
