@@ -52,7 +52,7 @@ case $1 in
 // MRTGConfigSource: mrtg csv data
 // As a input, could be either a local (to be created from
 // cached CNML file, or remote
-// \$MRTGConfigSource='http://www.guifi.net/snpservices/graphs/cnml2mrtgcsv.php';
+// \$MRTGConfigSource='http://snpservices.guifi.net/snpservices/graphs/cnml2mrtgcsv.php';
 \$MRTGConfigSource='$MRTGConfigSource'.\$SNPGraphServerId;
 // \$MRTGConfigSource='/var/lib/snpservices/data/guifi_mrtg.csv';
 

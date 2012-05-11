@@ -1,3 +1,9 @@
+snpservices (0.2.1-29) guifi; urgency=low
+
+  * Fix Dependances
+  * New default snpservices URL snpservices.guifi.net
+ -- Miquel Martos <miquel.martos@guifi.net>  Fri, 11 May 2012 23:37:54 +0200
+
 snpservices (0.2.1-28) guifi; urgency=low
 
   * Fix Typo!

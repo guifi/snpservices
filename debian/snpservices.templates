@@ -10,17 +10,17 @@ Description: rootZone: which is the ROOT zone. (Default: 3671)
 
 Template: snpservices/SNPDataServerurl
 Type: string
-Default: http://guifi.net
-Description: SNPDataServer_url: without ending backslash, the url where the data is. (Default: http://guifi.net)
+Default: http://snpservices.guifi.net
+Description: SNPDataServer_url: without ending backslash, the url where the data is. (Default: http://snpservices.guifi.net)
 
 Template: snpservices/MRTGConfigSource
 Type: string
-Default: http://www.guifi.net/snpservices/graphs/cnml2mrtgcsv.php?server=
+Default: http://snpservices.guifi.net/snpservices/graphs/cnml2mrtgcsv.php?server=
 Description: MRTGConfigSource: mrtg csv data. (Only URL, Graph Server Id will be concatenated)
 
 Template: snpservices/CNMLSource
 Type: string
-Default: http://www.guifi.net/snpservices/common/qnodes.php?nodes=%s
+Default: http://snpservices.guifi.net/snpservices/common/qnodes.php?nodes=%s
 Description: CNMLSource: url for CNML node query, use sprintf syntax.
 
 Template: snpservices/rrddbpath

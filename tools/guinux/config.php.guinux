@@ -15,15 +15,15 @@ $SNPDataServer_url =  "%SNPUrl%";
 // MRTGConfigSource: mrtg csv data
 // As a input, could be either a local (to be created from
 // cached CNML file, or remote
-// $MRTGConfigSource='http://www.guifi.net/snpservices/graphs/cnml2mrtgcsv.php';
-$MRTGConfigSource='http://www.guifi.net/snpservices/graphs/cnml2mrtgcsv.php?server='.$SNPGraphServerId;
+// $MRTGConfigSource='http://snpservices.guifi.net/snpservices/graphs/cnml2mrtgcsv.php';
+$MRTGConfigSource='http://snpservices.guifi.net/snpservices/graphs/cnml2mrtgcsv.php?server='.$SNPGraphServerId;
 // $MRTGConfigSource='/var/lib/snpservices/data/guifi_mrtg.csv';
 
 // CNMLSource: url for CNML node query, use sprintf syntax
 // MySQL-drupal source
 // $CNMLSource='http://proves.elserrat.guifi.net/guifi/cnml/%s/node';
 // Cached CNML source (prefered)
-$CNMLSource='http://www.guifi.net/snpservices/common/qnodes.php?nodes=%s';
+$CNMLSource='http://snpservices.guifi.net/snpservices/common/qnodes.php?nodes=%s';
 
 $CNMLData='/var/lib/snpservices/data/guifi.cnml';
 

@@ -1,24 +1,23 @@
 
-
 This software provides graph services in the context of the 
 Spontaneous Networkink Platform.
 
-Uses nodexchange as a input format, and provides traffic and
+Uses nodexchange/cnml as a input format, and provides traffic and
 latency/availability graphs in image format by using mrtg/rrdtool 
 collected history by simple HTTP URLs, therefore is easily
 plugable to any web application.
 
 PREREQUISITES:
 You must have rrdtool, rrdtool-perl, rrdtool-php, mrtg and php-gd
-Optionally subversion, in order to checkout the files
+Optionally git, in order to checkout the files
 
 INSTALL:
 
-1.-Checkout the latest SVN version into a directory accessible by an http server:
+1.-Checkout the latest GIT version into a directory accessible by an http server:
 
 example:
 cd /var/www/html
-svn checkout https://svn.projectes.lafarga.cat/svn/guifi/snpservices snpservices 
+git clone git://gitorious.org/guifi/snpservices.git
 
 To publish the directory, you might create an alias into the apache configuration 
 for the directory:
@@ -29,7 +28,7 @@ Alias /snpservices /var/www/html/snpservices
 chmod a+rw snpservices/tmp
 
 3.-Create a guifi service at the database. Use this url
-http://yourserver/snpservices/graphs/graphs.php
+http://yourserver/snpservices
 
 4.-Copy the common/config.php.template to config.php and edit it to set your values.
 In particular take attention to:
@@ -45,11 +44,11 @@ graph feed your server. Think that may take a while to be ready for exporting yo
 5.-If you have the rrd files in an old format (devicename*.rrd)
 If you have old graph files which you like to retain, rename them into the new
 format, by creating a script with the following format:
-wget -O x.sh "http://guifi.net/snpservices/graphs/cnml2mrtgcsv.php?cp&server=ServerID#"
+wget -O x.sh "http://snpservices.guifi.net/snpservices/graphs/cnml2mrtgcsv.php?cp&server=ServerID#"
 Where the server number is the number of your server
 
 6.-If you simply want a list of the files at another server, get a list from them with:
-wget -O x.sh "http://guifi.net/snpservices/graphs/cnml2mrtgcsv.php?list&server=ServerID#"
+wget -O x.sh "http://snpservices.guifi.net/snpservices/graphs/cnml2mrtgcsv.php?list&server=ServerID#"
 Where the server number is the number of your server
 
 7.-Install a cron job to run the mrtg and refresh your configi every 5 mins:

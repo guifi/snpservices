@@ -7,7 +7,7 @@ Standards-Version: 3.7.2
 
 Package: snpservices
 Architecture: all
-Depends: ${misc:Depends}, apache2, php5, php5-cli, php5-gd, rrdtool, librrdp-perl, librrds-perl, mrtg-rrd, traceroute
+Depends: ${misc:Depends}, apache2, php5, php5-cli, php5-gd, rrdtool, librrdp-perl, librrds-perl, mrtg-rrd, traceroute, libapache2-mod-php5
 Provides: php5-rrdtool
 Conflicts: php5-rrdtool
 Replaces: php5-rrdtool
