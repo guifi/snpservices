@@ -144,7 +144,7 @@ switch ($type)
 		$nodestr['nick']=$gxml->xpath('//node[@id='.$node.']/@title');
 		//----------  XML End Xpath Query -----------------------------------      
 		$title = sprintf('Supernode: %s - wLANs %s',$nodestr['nick'][0],$direction);
-		$vscale = 'b/sec';
+		$vscale = 'B/sec';
 		
 	case 'clients':
 		$cmd = sprintf(' COMMENT:"%32s%11s%13s%12s%16s\n"<br />','     ','Now','Avg','Max','Total');
@@ -168,7 +168,7 @@ switch ($type)
 			}
 			// $radios[] = array('nick' => $radio_attr['title'], 'change_direction' => true, 'filename' => $rrddb_path.'.rrd', 'max' => $traffic['max'] * 8);
 			$title = sprintf('wLAN: %s (%s) - links (%s)',$radio_attr['title'],$otherdir,$direction);
-			$vscale = 'b/sec'; 
+			$vscale = 'B/sec'; 
 		}
 		
 		$result = array();
@@ -275,7 +275,7 @@ switch ($type)
 		break;
 	case 'radio': 
 		$cmd = sprintf(' COMMENT:"%32s%11s%13s%12s%16s\n"<br />','     ','Now','Avg','Max','Total');
-		$vscale = 'b/sec';
+		$vscale = 'B/sec';
 		$row = simplexml_load_string($radio_xml[0]->asXML());
 		$w = $row->xpath('//radio');
 		$w_attr = $w[0];

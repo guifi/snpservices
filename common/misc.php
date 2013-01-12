@@ -3,7 +3,7 @@
 include_once("rrdtool.php");
 
 /* **
- *  * _guifi_tostrunits convert a number to string format in B,KB,MB...
+ *  * _guifi_tostrunits convert a number to string format in B,kB,MB... 
  * **/
 function _guifi_tostrunits($num) {
   $d = 0;
@@ -12,7 +12,7 @@ function _guifi_tostrunits($num) {
   	$rn = ($rn / 1000);
   	$d++;
   }
-  $base = array('b ','Kb','Mb','Gb','Tb','Pb');
+  $base = array('B ','kB','MB','GB','TB','PB');
   return sprintf("%s %s",number_format(($rn),2),$base[$d]);
 }
 
