@@ -64,7 +64,7 @@ fputs($cf,sprintf($rrdtool_header,$rrdimg_path,$rrdimg_path,$rrddb_path,$rrddb_p
 while ( $buffer = fgets($hf, 4096) ) {
   $node_line_array = explode(",",$buffer);
   $line = $node_line_array[count($node_line_array) - 1];
-  if ( substr($buffer,0,1) == '#' || $line == "Planned\n" || $line == "Dropped\n" || $line == "Building\n" || $line == "Reserved\n" )
+  if ( substr($buffer,0,1) == '#' || $line == "Inactive\n" || $line == "Planned\n" || $line == "Dropped\n" || $line == "Building\n" || $line == "Reserved\n" )
           continue;
 
   $buffer = str_replace("\n","",$buffer);

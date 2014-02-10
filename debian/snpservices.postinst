@@ -30,8 +30,6 @@ case $1 in
 	rrdimgpath=$RET
 	db_get snpservices/rrdversion
 	rrdversion=$RET
-	db_get snpservices/forcefetch
-	forcefetch=$RET
 
 
 	/bin/cat << EOT > $tmpfile
@@ -84,7 +82,8 @@ ImageDir: %s
 LogDir: %s
 LogFormat: rrdtool
 ThreshDir: %s
-Forks: 25
+Forks: 35
+SnmpOptions: timeout => 2, retries => 2, backoff => 1
 ';
 
 // mrtg ping template
@@ -126,20 +125,33 @@ EOT
 	/usr/bin/ucf --three-way --debconf-ok $tmpfile $configfile
 	/bin/rm $tmpfile
 
-	if [ $forcefetch = "true" ]
-	then
-		echo "Fetching mrtg.cfg";
-		if [ -r /tmp/last_update.mrtg ] && [ -r /tmp/last_mrtg ]; then rm /tmp/last_update.mrtg; rm /tmp/last_mrtg; fi;
-		cd /usr/share/snpservices/graphs; /usr/bin/php mrtgcsv2mrtgcfg.php >> /var/log/snpservices/mrtgccfg.log 2>&1;
-	fi
 	# Force logrotate
 	touch /var/log/snpservices/mrtg.log
 	touch /var/log/snpservices/mrtgccfg.log
+	touch /tmp/last_mrtg
+	touch /tmp/last_update.mrtg
+	if [ ! -d "/var/lib/snpservices/data" ]
+	then
+	        /bin/mkdir /var/lib/snpservices/data
+	fi
+        if [ ! -d "/var/lib/snpservices/tmp" ]
+	then
+	        /bin/mkdir /var/lib/snpservices/tmp
+	fi
 	/usr/sbin/logrotate -f /etc/logrotate.d/snpservices
 
 	if /bin/pidof /usr/sbin/apache2 >/dev/null 2>&1; then
 		invoke-rc.d apache2 force-reload
 	fi
+
+	echo "# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ";
+	echo " ";
+	echo "The file mrtg.cfg is created or refreshed every 30 minutes.";
+	echo "Please wait for minute 0 or 30 or run this to generate it manually:";
+	echo "cd /usr/share/snpservices/graphs; /usr/bin/php mrtgcsv2mrtgcfg.php";
+	echo "SAX!";
+	echo " ";
+	echo "# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ";
 
 	exit 0
 	;;

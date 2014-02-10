@@ -1,3 +1,16 @@
+snpservices (0.2.2-1) guifi; urgency=low
+
+  * Skip Innactive devices!
+  * ping.sh set timeout to 4 seconds.
+ -- Miquel Martos <miquel.martos@guifi.net>  Mon, 10 Jan 2014 20:48:03 +0200
+
+snpservices (0.2.1-30) guifi; urgency=low
+
+  * Data traffic is displayed incorrectly.
+  * Replaced b/s (bits) to B/s (Bytes)
+  * Thanks Eloi Rebes for report the issue and provide the patch.
+ -- Miquel Martos <miquel.martos@guifi.net>  Sat, 12 Jan 2013 12:07:03 +0200
+
 snpservices (0.2.1-29) guifi; urgency=low
 
   * Fix Dependances

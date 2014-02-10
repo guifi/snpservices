@@ -20,7 +20,22 @@ case "$1" in
 
 			/usr/bin/ucf --purge /etc/snpservices/config.php
 			/bin/rm -rf /etc/snpservices/
-
+			if [ -f "/tmp/last_update.mrtg" ]
+			then
+				/bin/rm /tmp/last_update.mrtg
+			fi
+			if [ -f "/tmp/last_mrtg" ]
+			then
+				/bin/rm /tmp/last_mrtg
+			fi
+			if [ -d "/var/lib/snpservices/data" ]
+			then
+				/bin/rm -rf /var/lib/snpservices/data
+			fi
+			if [ -d "/var/lib/snpservices/tmp" ]
+			then
+				/bin/rm -rf /var/lib/snpservices/tmp
+			fi
 		fi
 
 		;;

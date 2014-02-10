@@ -47,7 +47,8 @@ ImageDir: %s
 LogDir: %s
 LogFormat: rrdtool
 ThreshDir: %s
-Forks: 25
+Forks: 35
+SnmpOptions: timeout => 2, retries => 2, backoff => 1
 ';
 
 // mrtg ping template

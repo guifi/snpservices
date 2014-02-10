@@ -1,7 +1,7 @@
 #!/bin/sh
  PING="/bin/ping"
  ADDR=$1
- DATA=`$PING -c5 -i 0.2 $ADDR -q `
+ DATA=`$PING -c5 -i 0.2 $ADDR -q -W 4`
  LOSS=`echo $DATA | awk '{print $18 }' | tr -d %`
  ERRORS=`echo $DATA | awk '{print $19 }' | tr -d %`
  if [ $ERRORS = "errors," ]

@@ -45,7 +45,7 @@ ImageDir: %s
 LogDir: %s
 LogFormat: rrdtool
 ThreshDir: %s
-Forks: 12
+Forks: 35
 ';
 
 // mrtg ping template

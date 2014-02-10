@@ -3,8 +3,6 @@ graphs usr/share/snpservices/
 misc usr/share/snpservices/
 services usr/share/snpservices/
 index.php usr/share/snpservices/
-data var/lib/snpservices/
-tmp var/lib/snpservices/
 common/config.php.template /etc/snpservices/
 tools/guinux/config.php.guinux /etc/snpservices/
 tools/guinux/snpservices.conf /etc/apache2/conf.d/
