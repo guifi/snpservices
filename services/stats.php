@@ -4,7 +4,7 @@
  *
  * stats CNML service
  */
- 
+
 // info hook
 // provides a message with information about the service and how to use it
 function stats_info() {
@@ -23,13 +23,13 @@ function stats_info() {
 function stats_main() {
 	if (isset($_GET['devices']))
 	  stats_view(explode(',',$_GET['devices']));
-	else 
+	else
 	  stats_view();
 }
 
 function stats_view($devices = array()) {
 	global $rrddb_path;
-	  
+
 	if (!count($devices)) {
 		// No devices given, so going to output all devices with information at
 		// the file system
@@ -54,7 +54,7 @@ function stats_view($devices = array()) {
 		}
 	}
 	sort($devices);
-	
+
   header("Content-Type: text/plain");
 	foreach ($devices as $did) {
 		$now = time();

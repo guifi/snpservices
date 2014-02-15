@@ -4,7 +4,7 @@
  *
  * Live ping CNML service
  */
- 
+
 // info hook
 // provides a message with information about the service and how to use it
 function liveping_info() {
@@ -35,7 +35,7 @@ function liveping_main() {
 	  echo "ERROR, don't know where to ping\n";
 	  return;
 	}
-	  
+
   $cmd = sprintf('ping -c %d %s',$count,$ip);
 
   header("Content-Type: text/plain");

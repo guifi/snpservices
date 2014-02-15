@@ -2,10 +2,10 @@
 /*
  * Created on 24/09/2008
  *
- * example "Hello CNML World!" CNML service to be used as a template for 
+ * example "Hello CNML World!" CNML service to be used as a template for
  * developing new services
  */
- 
+
 // info hook
 // provides a message with information about the service and how to use it
 function example_info() {

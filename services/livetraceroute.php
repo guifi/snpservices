@@ -4,7 +4,7 @@
  *
  * Live traceroute CNML service
  */
- 
+
 // info hook
 // provides a message with information about the service and how to use it
 function livetraceroute_info() {
@@ -29,7 +29,7 @@ function livetraceroute_main() {
 	  echo "ERROR, don't know where to trace\n";
 	  return;
 	}
-	  
+
   header("Content-Type: text/plain");
   system(sprintf('traceroute %s',$ip));
   return;
