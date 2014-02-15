@@ -141,8 +141,8 @@ function graph_main() {
 			$nodestr['nick']=$gxml->xpath('//node[@id='.$node.']/@title');
 			//----------  XML End Xpath Query -----------------------------------      
 			$title = sprintf('Supernode: %s - wLANs %s',$nodestr['nick'][0],$direction);
-			$vscale = 'b/sec';
-			
+			$vscale = 'bits/sec';
+
 		case 'clients':
 			$cmd = sprintf(' COMMENT:"%32s%11s%13s%12s%16s\n"<br />','     ','Now','Avg','Max','Total');
 			if ($type == 'clients')
@@ -164,7 +164,7 @@ function graph_main() {
 					$radios[] = array('title' => $radio_dev_attr['ssid'], 'change_direction' => true, 'filename' => $filename, 'max' => $traffic['max'],'traffic'=>$traffic_radio['out']);
 				}
 				$title = sprintf('wLAN: %s (%s) - links (%s)',$radio_attr['title'],$otherdir,$direction);
-				$vscale = 'b/sec'; 
+				$vscale = 'bits/sec';
 			}
 			
 			$result = array();
@@ -249,7 +249,7 @@ function graph_main() {
 					$dir_str = $direction;
 				}
 				$cmd .= sprintf(' DEF:val%d="%s":%s:AVERAGE',$key,$item['filename'],$datasource);
-				$cmd .= sprintf(' CDEF:val%da=val%d,1,* ',$key,$key);
+				$cmd .= sprintf(' CDEF:val%da=val%d,8,* ',$key,$key);
 				$cmd .= sprintf(' LINE1:val%da%s:"%30s %3s"',$key,$color[$col],$item['title'],$dir_str);
 				$cmd .= sprintf(' <br />GPRINT:val%da:LAST:"%%8.2lf %%s"',$key);
 				$cmd .= sprintf(' GPRINT:val%da:AVERAGE:"%%8.2lf %%s"',$key);
@@ -265,7 +265,7 @@ function graph_main() {
 		case 'radio': 
 		case 'device': 
 			$cmd = sprintf(' COMMENT:"%32s%11s%13s%12s%16s\n"<br />','     ','Now','Avg','Max','Total');
-			$vscale = 'b/sec';
+			$vscale = 'bits/sec';
 			$row = simplexml_load_string($radio_xml[0]->asXML());
 			$w = $row->xpath('//radio');
 			$w_attr = $w[0];
@@ -278,14 +278,14 @@ function graph_main() {
 			$traffic = guifi_get_traffic($filename,$start,$end);
 			
 			$cmd .= sprintf(' DEF:val0="%s":ds0:AVERAGE',$filename);
-			$cmd .=         ' CDEF:val0a=val0,1,* ';
+			$cmd .=         ' CDEF:val0a=val0,8,* ';
 			$cmd .= sprintf(' AREA:val0a#0000FF:"%30s In "',$radio_attr['title']);
 			$cmd .=         ' <br />GPRINT:val0a:LAST:"%8.2lf %s"';
 			$cmd .=         ' GPRINT:val0a:AVERAGE:"%8.2lf %s"';
 			$cmd .=         ' GPRINT:val0a:MAX:"%8.2lf %s"';
 			$cmd .= sprintf(' COMMENT:"%15s\n"',_guifi_tostrunits($traffic['in']));
 			$cmd .= sprintf(' DEF:val1="%s":ds1:AVERAGE',$filename);
-			$cmd .=         ' CDEF:val1a=val1,1,* ';
+			$cmd .=         ' CDEF:val1a=val1,8,* ';
 			$cmd .= sprintf(' LINE2:val1a#00FF00:"%30s Out"',$radio_attr['title']);
 			$cmd .=         ' <br />GPRINT:val1a:LAST:"%8.2lf %s"';
 			$cmd .=         ' GPRINT:val1a:AVERAGE:"%8.2lf %s"';
