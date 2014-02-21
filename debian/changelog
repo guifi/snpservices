@@ -1,9 +1,25 @@
+snpservices (0.2.2-5) guifi; urgency=low
+
+  * Fix Variable
+ -- Miquel Martos <miquel.martos@guifi.net>  Fri, 21 Jan 2014 17:05:03 +0200
+
+snpservices (0.2.2-4) guifi; urgency=low
+
+  * Fix "tmp" permissions, sorry!
+  * Now you can configure mrtg forks.
+ -- Miquel Martos <miquel.martos@guifi.net>  Fri, 21 Jan 2014 16:38:03 +0200
+
+snpservices (0.2.2-3) guifi; urgency=low
+
+  * Show Graphs values in bits.
+ -- Miquel Martos <miquel.martos@guifi.net>  Wed, 19 Jan 2014 16:38:03 +0200
+
 snpservices (0.2.2-1) guifi; urgency=low
 
   * Skip Innactive devices!
   * ping.sh set timeout to 4 seconds.
   * Mrtg template: Set default Fork to 35.
- -- Miquel Martos <miquel.martos@guifi.net>  Mon, 10 Jan 2014 20:48:03 +0200
+ -- Miquel Martos <miquel.martos@guifi.net>  Mon, 14 Jan 2014 20:48:03 +0200
 
 snpservices (0.2.1-30) guifi; urgency=low
 

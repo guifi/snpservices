@@ -35,10 +35,16 @@ Description: rddimg path.
 
 Template: snpservices/rrdversion
 Type: string
-Default: 1.3
+Default: 1.4
 Description: rddtool version.
 
 Template: snpservices/forcefetch
 Type: boolean
 Default: true
 Description: Force to fetch mrtg.cfg now.
+
+Template: snpservices/forks
+Type: string
+Default: 35
+Description: Set the number of concurrent processes mrtg.
+

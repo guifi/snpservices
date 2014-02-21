@@ -30,7 +30,8 @@ case $1 in
 	rrdimgpath=$RET
 	db_get snpservices/rrdversion
 	rrdversion=$RET
-
+        db_get snpservices/forks
+        forks=$RET
 
 	/bin/cat << EOT > $tmpfile
 <?php
@@ -67,7 +68,7 @@ case $1 in
 \$rrddb_path='$rrddbpath';
 \$rrdimg_path='$rrdimgpath';
 
-// which version does have this server? 
+// which version does have this server?
 // currently supported versions are:
 // 1.2
 // 1.3
@@ -82,7 +83,7 @@ ImageDir: %s
 LogDir: %s
 LogFormat: rrdtool
 ThreshDir: %s
-Forks: 35
+Forks: $forks
 SnmpOptions: timeout => 2, retries => 2, backoff => 1
 ';
 
@@ -137,6 +138,7 @@ EOT
         if [ ! -d "/var/lib/snpservices/tmp" ]
 	then
 	        /bin/mkdir /var/lib/snpservices/tmp
+		/bin/chown www-data:www-data /var/lib/snpservices/tmp
 	fi
 	/usr/sbin/logrotate -f /etc/logrotate.d/snpservices
 

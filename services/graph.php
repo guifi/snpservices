@@ -141,7 +141,7 @@ function graph_main() {
 			$nodestr['nick']=$gxml->xpath('//node[@id='.$node.']/@title');
 			//----------  XML End Xpath Query -----------------------------------
 			$title = sprintf('Supernode: %s - wLANs %s',$nodestr['nick'][0],$direction);
-			$vscale = 'bits/sec';
+			$vscale = 'bits/sec (bips)';
 
 		case 'clients':
 			$cmd = sprintf(' COMMENT:"%32s%11s%13s%12s%16s\n"<br />','     ','Now','Avg','Max','Total');
@@ -164,7 +164,7 @@ function graph_main() {
 					$radios[] = array('title' => $radio_dev_attr['ssid'], 'change_direction' => true, 'filename' => $filename, 'max' => $traffic['max'],'traffic'=>$traffic_radio['out']);
 				}
 				$title = sprintf('wLAN: %s (%s) - links (%s)',$radio_attr['title'],$otherdir,$direction);
-				$vscale = 'bits/sec';
+				$vscale = 'bits/sec (bips)';
 			}
 
 			$result = array();
@@ -265,7 +265,7 @@ function graph_main() {
 		case 'radio':
 		case 'device':
 			$cmd = sprintf(' COMMENT:"%32s%11s%13s%12s%16s\n"<br />','     ','Now','Avg','Max','Total');
-			$vscale = 'bits/sec';
+			$vscale = 'bits/sec (bips)';
 			$row = simplexml_load_string($radio_xml[0]->asXML());
 			$w = $row->xpath('//radio');
 			$w_attr = $w[0];
