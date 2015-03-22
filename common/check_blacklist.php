@@ -11,7 +11,9 @@ function save_oips($oips) {
 
 do {
 
-$if = @fopen('/tmp/blacklist.snmp','r');
+system('sort /tmp/blacklist.snmp | uniq > /tmp/blacklist.ips');
+
+$if = @fopen('/tmp/blacklist.ips','r');
 
 $Iips = array();
 $Oips = array();
@@ -37,22 +39,21 @@ foreach ($Iips as $ip  => $v) {
   $c++;
   $pct = intval(($c * 100) / $ctotal);
   echo "\n".$c."/".$ctotal." (".$pct."%): ".$ip;
-  exec("/bin/ping -c2 -i 0.2 $ip -q -W 3",$output,$retval);
-  $lline = $output[count($output)-2];
-  $pos = strpos($lline, "100% packet loss"); 
-  if ($pos == false) {
-    echo " ---> ALIVE!: $lline";
-    unset($Oips[$ip]);
-    save_oips($Oips);
-  }
+  exec('./pping.sh '.$ip. " > /dev/null &");
+  // exec('/bin/ping -c 5i '.$ip.' -q -W 4; if [ $? -eq 0 ] then; echo "'.$ip.'" >> /tmp/blacklist.ok fi; > /dev/null &');
+  usleep(100000);
 }
-
-system('cp /tmp/blacklist.ips /tmp/blacklist.snmp');
 echo "\n\n#############\n";
-echo date('l jS \of F Y h:i:s A').": $nelements checked. Going to sleep for 7 mins 30 secs\n\n";
+echo date('l jS \of F Y h:i:s A').": $nelements checked. Creating a new blacklist without he alive IPs\n\n";
+sleep(10);
+system('grep -vf /tmp/blacklist.ok /tmp/blacklist.ips > /tmp/blacklist.tmp');
+system('cp /tmp/blacklist.tmp /tmp/blacklist.ips');
+system('cp /tmp/blacklist.tmp /tmp/blacklist.snmp');
+system('rm -f /tmp/blacklist.ok /tmp/blacklist.tmp');
+
+echo "\n\n#############\n";
+echo date('l jS \of F Y h:i:s A').": Blacklist refreshed. Going to sleep for 7 mins 30 secs\n\n";
 sleep(450);
-system('tac /tmp/blacklist.snmp > /tmp/blacklist.tmp');
-system('cp /tmp/blacklist.tmp  /tmp/blacklist.smtp');
 
 
 } while (true);
