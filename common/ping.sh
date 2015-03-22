@@ -11,8 +11,9 @@
  echo $LOSS
  if [ $LOSS = 100 ];
  then
-               echo 0
+    echo 0
+    echo ",$ADDR," >> /tmp/blacklist.snmp
  else
-#        echo $DATA | awk -F/ '{print $5 }' | cut -f 1 -d '.'
-        echo $DATA | awk -F/ '{print $5 }'
+#   echo $DATA | awk -F/ '{print $5 }' | cut -f 1 -d '.'
+    echo $DATA | awk -F/ '{print $5 }'
  fi
