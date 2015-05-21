@@ -36,6 +36,16 @@ case "$1" in
 			then
 				/bin/rm -rf /var/lib/snpservices/tmp
 			fi
+                        if [ -f "/etc/apache2/cond.d/snpservices.conf" ]
+                        then
+                                /bin/rm -rf /etc/apache2/cond.d/snpservices.conf
+                        fi
+                        if [ -f "/etc/apache2/conf-available/snpservices.conf" ]
+                        then
+                                /usr/sbin/a2disconf snpservices
+                                /bin/rm -rf /etc/apache2/conf-available/snpservices.conf
+                        fi
+
 		fi
 
 		;;

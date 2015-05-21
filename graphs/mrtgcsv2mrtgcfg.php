@@ -7,7 +7,11 @@ if (file_exists("../common/config.php")) {
 }
 
 function mrtgcfg_from_mrtgcsv($rrdtool_header,$rrdimg_path,$rrddb_path,$mrtg_traffic_template,$mrtg_ping_template) {
-system('/bin/grep -vf /tmp/blacklist.ips /tmp/mrtg.csv > /tmp/mrtg.blacklisted.csv');
+
+  if (!file_exists('/tmp/blacklist.ips'))
+    system('/bin/touch /tmp/blacklist.ips');
+
+    system('/bin/grep -vf /tmp/blacklist.ips /tmp/mrtg.csv > /tmp/mrtg.blacklisted.csv');
 
 $hf = @fopen('/tmp/mrtg.blacklisted.csv','r');
 $cf = @fopen('../data/mrtg.cfg','w+');

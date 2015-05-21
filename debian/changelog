@@ -1,3 +1,10 @@
+snpservices (0.2.2-6) guifi; urgency=low
+
+  * Add a plus sign (+) to the FollowSymLinks option. This is required in Apache from version 2.4 on: (Roger Pueyo)
+  * "Either all Options must start with + or -, or no Option may." ( Roger Pueyo )
+  * Debian 8 and Ubuntu 15.04 require the apache file "snpservices.conf" at /etc/apache2/conf-available directory.
+ -- Miquel Martos <miquel.martos@guifi.net>  Thu, 21 May 2015 15:05:03 +0200
+
 snpservices (0.2.2-5) guifi; urgency=low
 
   * Fix Variable

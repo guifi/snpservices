@@ -51,8 +51,8 @@ function guifi_get_pings($did, $start = NULL, $end = NULL) {
     );
     
   $fname = sprintf("%s/%d_ping.rrd",$rrddb_path,$did);
-  $last = rrd_last($fname);
-  $result = rrd_fetch($fname,$opts,count($opts));
+  $last = rrd_last_compat($fname);
+  $result = rrd_fetch_compat($fname,$opts,count($opts));
   if (is_array($result['data']))
     $result['data'] = array_chunk($result['data'],$result['ds_cnt']);
   else
@@ -132,8 +132,8 @@ function guifi_get_traffic($filename, $start = NULL, $end = NULL) {
     '--start',$start,
     '--end',$end
     );
-  $last = rrd_last($filename);
-  $result = rrd_fetch($filename,$opts,count($opts));
+  $last = rrd_last_compat($filename);
+  $result = rrd_fetch_compat($filename,$opts,count($opts));
   if (!is_array($result['data']))
     return;
   $result['data'] = array_chunk($result['data'],$result['ds_cnt']);

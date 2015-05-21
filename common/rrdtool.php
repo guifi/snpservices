@@ -6,7 +6,7 @@ function executeEx($cmd,&$retstr) {
  return $retval==0;
 }
 
-function rrd_last($fname) {
+function rrd_last_compat($fname) {
  global $rrdtool_path;
 
  $cmd=$rrdtool_path." last ".$fname;
@@ -17,7 +17,7 @@ function rrd_last($fname) {
  return $retstr[0];
 }
 
-function rrd_fetch($fname,$opts,$nopts) {
+function rrd_fetch_compat($fname,$opts,$nopts) {
  global $rrdtool_path;
 
  $result['start']=0;

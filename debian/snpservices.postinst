@@ -142,6 +142,12 @@ EOT
 	fi
 	/usr/sbin/logrotate -f /etc/logrotate.d/snpservices
 
+        if [ -d "/etc/apache2/conf-available" ]
+        then
+          mv /etc/apache2/conf.d/snpservices.conf /etc/apache2/conf-available/snpservices.conf
+         /usr/sbin/a2enconf snpservices
+        fi
+
 	if /bin/pidof /usr/sbin/apache2 >/dev/null 2>&1; then
 		invoke-rc.d apache2 force-reload
 	fi
