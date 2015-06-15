@@ -1,6 +1,6 @@
 
 This software provides graph services in the context of the 
-Spontaneous Networkink Platform.
+Spontaneous Networking Platform.
 
 Uses nodexchange/cnml as a input format, and provides traffic and
 latency/availability graphs in image format by using mrtg/rrdtool 
@@ -17,7 +17,7 @@ INSTALL:
 
 example:
 cd /var/www/html
-git clone git://gitorious.org/guifi/snpservices.git
+git clone git://github.com/guifi/snpservices.git
 
 To publish the directory, you might create an alias into the apache configuration 
 for the directory:

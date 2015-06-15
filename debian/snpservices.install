@@ -1,9 +1,6 @@
 common usr/share/snpservices/
 graphs usr/share/snpservices/
-misc usr/share/snpservices/
 services usr/share/snpservices/
 index.php usr/share/snpservices/
 common/config.php.template /etc/snpservices/
-tools/guinux/config.php.guinux /etc/snpservices/
-tools/guinux/snpservices.conf /etc/apache2/conf.d/
-tools/guinux/snpconfig.pl usr/share/snpservices/
+common/snpservices.conf /etc/apache2/conf.d/
