@@ -25,7 +25,14 @@
   }
 
   echo "Getting CNML file\n";
-  $hcnml = @fopen($SNPDataServer_url."/guifi/cnml/".$rootZone."/detail", "r")
+  $opts = array(
+    'http' => array(
+      'timeout' => 150.0
+    )
+  );
+
+  $context = stream_context_create($opts);
+  $hcnml = @fopen($SNPDataServer_url."/guifi/cnml/".$rootZone."/detail", "r", false, $context)
     or die ('Error redaing CNML source\n');
   $wcnml = @fopen("../data/guifi.cnml.tmp", "w");
   while (!feof($hcnml)) {

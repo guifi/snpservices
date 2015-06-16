@@ -1,60 +1,64 @@
 <?php
 
 function snmp($device) {
-	
-	if ($device->getAttribute('id') == 464)
-	  $mrtg = "# ADSL de Gurb ";
-	
-	if (!($device->getAttribute('id')))
-	  return;
-	  
-	$mainip = array('Lan','wLan/Lan');
-	  
-	// get ipv4 / snmp interfaces 
-	$ipv4 = 0;
-	$snmp = array();
-	foreach ($device->childNodes as $child) {
 
-  	if ($child->nodeType != XML_ELEMENT_NODE)
-  	  continue;
-  	  		  
-		if ($child->tagName == 'radio') {
-      $child->hasAttribute('snmp_name') ? 
-        $snmp[$child->getAttribute('id')] = 
+  if (!($device->getAttribute('id')))
+    return;
+
+    // get ipv4 / snmp interfaces
+    $ipv4 = 0;
+    $snmp = array();
+    foreach ($device->childNodes as $child) {
+      if ($child->nodeType != XML_ELEMENT_NODE)
+        continue;
+      if ($child->tagName == 'radio') {
+        $child->hasAttribute('snmp_name') ?
+        $snmp[$child->getAttribute('id')] =
           $child->getAttribute('snmp_name').';'.
           $child->getAttribute('ssid') :
         $snmp[$child->getAttribute('id')] = $child->getAttribute('snmp_index');
-        
-      if ($child->getAttribute('mode')=='client')
-        $mainip[] = 'Wan';
-		}
+      }
 
-    if ($child->tagName == 'interface') {
-    	if ($device->hasAttribute('snmp_name')) 
-        $snmp[$device->getAttribute('id')] = $device->getAttribute('snmp_name');
-      else if ($device->hasAttribute('snmp_index'))
-        $snmp[$device->getAttribute('id')] = $device->getAttribute('snmp_index');
-            	
-      if ((!$ipv4) and in_array($child->getAttribute('type'),$mainip)) 
-          $ipv4 = $child->getAttribute('ipv4');
+      if ($child->tagName == 'interface') {
+        if ($device->hasAttribute('snmp_name'))
+          $snmp[$device->getAttribute('id')] = $device->getAttribute('snmp_name');
+        else if ($device->hasAttribute('snmp_index'))
+          $snmp[$device->getAttribute('id')] = $device->getAttribute('snmp_index');
+      }
     }
-	}
-	
-	// if no ipv4, nothing;
-	if (!$ipv4)
-	  return;
 
-        
-        $mrtg = '#';
+    $ipv4 = $device->getAttribute('mainipv4');
+    // if no ipv4, nothing;
+    if (!$ipv4)
+      return;
 
-	$mrtg .= 
-	  $device->getAttribute('title').','.
-	  $ipv4;
-	if (count($snmp))
-	  $mrtg .= ','.implode('|',$snmp);
-        
-        $mrtg .= ','.$device->getAttribute('status');	  
-	return $mrtg;
+    $mrtg = '#';
+    $mrtg .=
+      $device->getAttribute('title').','.
+      $ipv4;
+    if (count($snmp))
+    $mrtg .= ','.implode('|',$snmp);
+    $mrtg .= ','.$device->getAttribute('status');
+    return $mrtg;
+}
+
+function snmp_basic($device) {
+  if (!($device->getAttribute('id')))
+    return;
+
+    // get ipv4 / snmp interfaces
+    $ipv4 = 0;
+    $ipv4 = $device->getAttribute('mainipv4');
+    // if no ipv4, nothing;
+    if (!$ipv4)
+      return;
+
+    $mrtg = '#';
+    $mrtg .=
+      $device->getAttribute('title').','.
+      $ipv4;
+    $mrtg .= ','.$device->getAttribute('status');
+    return $mrtg;
 }
 
 function cnmlwalk($cnml,$SNPServer,$arr = array(), $export = FALSE) {
@@ -139,25 +143,28 @@ function zonewalk($zone,$SNPServer,&$arr) {
       nodewalk($child,$SNPServer,$arr);
       break;
     }
-
-//  	if ($child->tagName=='zone')
-//  	  print "Child: ".$child->tagName." ".$child->getAttribute('title')." \n";
   }
 }
 
 function nodewalk($node,$SNPServer,&$arr) {
   foreach ($node->getElementsByTagName('device') as $child) {
     devicewalk($child,$SNPServer,$arr);
-//    print "Child:--- ".$child->tagName." ".$child->getAttribute('title')." \n";
   }
 }
 
 function devicewalk($device,$SNPServer,&$arr,$links = true) {
+        global $SNPversion;
+        
 	$id = $device->getAttribute('id');
 	if (isset($arr['device'][$id]))
 	  return;
-	 
-	$arr['device'][$id] = snmp($device);
+
+        if ($SNPversion < 3)
+          $snmp = snmp($device);
+        else
+          $snmp = snmp_basic($device);
+                                
+	$arr['device'][$id] = $snmp;
 	
 	if (!$links)
 	  return; 
@@ -181,13 +188,16 @@ if (file_exists("../common/config.php")) {
 // Controlinmg time execution (this routine should be very efficient)
 $time_start = microtime(true);
 
-if (!isset($_GET['server'])) {
-//  echo "You should provide the ID of a valid SNP graph server\n";
-//  exit();
-  $SNPServer=$SNPGraphServerId;
-} else
-  $SNPServer = $_GET['server'];
-  
+  if (!isset($_GET['server']))
+    $SNPServer=$SNPGraphServerId;
+  else
+    $SNPServer = $_GET['server'];
+
+  if (!isset($_GET['version']))
+    $SNPversion = 2;
+  else
+    $SNPversion = $_GET['version'];
+
 header("Content-Type: text/plain");
 
 // Opening CNML source
@@ -195,14 +205,11 @@ $cnml = new DOMDocument;
 $cnml->preserveWhiteSpace = false;
 $cnml->Load('../data/guifi.cnml');
 $time_s = microtime(true);
-//print "# file guifi.cnml loaded".($time_s - $time_start)."\n";
 
 // Validate the graph server
 $xpath = new DOMXPath($cnml);
 $query = "//service[@id=".$SNPServer." and @type='SNPgraphs']";
 $entries = $xpath->evaluate($query);
-//$time_x = microtime(true);
-//print "guifi.cnml loaded and server verified ".($time_x - $time_start)."\n";
 
 // print count($servers);
 if (count($entries) == 0) {
@@ -237,10 +244,6 @@ foreach ($entries as $entry) {
   devicewalk($entry,$SNPServer,$arr);
 }
 
-//$time_x = microtime(true);
-//print "guifi.cnml graph server XPATH ".($time_x - $time_start)."\n";
-
-
 if (!empty($arr['linked'])) {
 // Cleaning linked already filled
 foreach ($arr['linked'] as $k=>$foo)
@@ -260,12 +263,6 @@ foreach ($arr['linked'] as $k=>$foo)
     }
   }
 }
-
-//$time_1 = microtime(true);
-//print "guifi.cnml walked ".($time_1 - $time_start)." got ".count($arr['device'])." devices (".count($arr['linked'])." linked)\n";
-//print_r($arr);
-
-//header('Content-type: application/csv');
 
 // Going to dump the output
 if (!empty($arr['device'])) 
@@ -296,6 +293,5 @@ if (!empty($arr['device']))
 	  } else
  	     print $id.','.$foo."\n";
 }
-//$time_2 = microtime(true);
-//print "snmp created ".($time_2 - $time_start)."\n";
+
 ?>
