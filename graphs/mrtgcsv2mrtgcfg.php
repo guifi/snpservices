@@ -160,7 +160,7 @@ print "Waiting for  ".$secs.".".$nanos." seconds\n";
 time_nanosleep($secs,($nanos * 10000000));
 print date('Y/m/d H:i:s')."\n";
 
-$hf = @fopen($MRTGConfigSource,"r") or die("Error reading MRTG csv input\n");
+$hf = @fopen($MRTGConfigSource."&version=3","r") or die("Error reading MRTG csv input\n");
 $af = @fopen('/tmp/mrtg.csv','w+');
 
 while (!feof($hf)) {
