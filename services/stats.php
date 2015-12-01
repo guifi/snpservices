@@ -14,20 +14,30 @@ function stats_info() {
 	echo "optional parameters:\n";
 	echo "  devices=<device_id>[,<device_id>]\n";
 	echo "    comma separated list of devices to gather information from\n";
-	echo "if no list is given, will output all the statistics available\n";
+	echo "    if no list is given, will output all the statistics available\n";
+	echo "  traffic_start=-<time>\n";
+	echo "    <time> = negative number, in seconds, from when the graph starts\n";
+	echo "    default value = -31536000 (1 year)\n";
+	echo "  traffi_end=-<time>\n";
+	echo "    <time> = negative number, in seconds, from when the graph ends\n";
+	echo "    default value = -300 (1/2 hour)\n";
 	echo "\n";
 }
 
 // main hook
 // provides the service
 function stats_main() {
+	(isset($_GET['traffic_start']))  ? $traffic_start   = $_GET['traffic_start'] : $traffic_start  = -(60*60*24*365);
+	(isset($_GET['traffic_end']))    ? $traffic_end     = $_GET['traffic_end']   : $traffic_end    = -300;
+	if ($traffic_start == 0)
+		$traffic_start = -(60*60*24*365);
 	if (isset($_GET['devices']))
-	  stats_view(explode(',',$_GET['devices']));
+	  stats_view($traffic_start,$traffic_end,explode(',',$_GET['devices']));
 	else
-	  stats_view();
+	  stats_view($traffic_start,$traffic_end);
 }
 
-function stats_view($devices = array()) {
+function stats_view($traffic_start,$traffic_end,$devices = array()) {
 	global $rrddb_path;
 
 	if (!count($devices)) {
@@ -76,7 +86,7 @@ function stats_view($devices = array()) {
 		$files = glob(sprintf("%s/%d-*_traf.rrd",$rrddb_path,$did));
 		if (count($files)) foreach ($files as $filename) {
 	      list($id,$snmp_key) = sscanf(basename($filename,'.rrd'),"%d-%d_traf");
-	      $traf = guifi_get_traffic($filename,$lastyear);
+	      $traf = guifi_get_traffic($filename,$traffic_start,$traffic_end);
 		  print sprintf('|%s,%d,%d',$snmp_key,($traf['in']/(1000000)),($traf['out']/(1000000)));
 		}
 		print "\n";
