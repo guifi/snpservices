@@ -29,7 +29,7 @@ function graph_info() {
 	echo "    default value = -86400 (1 day)\n";
 	echo "  end=-<time>\n";
 	echo "    <time> = negative number, in seconds, from when the graph ends\n";
-	echo "    default value = -300 (1/2 hour)\n";
+	echo "    default value = -300 (5 mins)\n";
 	echo "  width=<pixels>\n";
 	echo "    <pixels> = graph width, in pixels\n";
 	echo "    default value = 600\n";
