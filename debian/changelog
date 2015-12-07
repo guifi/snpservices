@@ -1,3 +1,8 @@
+snpservices (0.2.2-7) guifi; urgency=low
+
+  * Adds traffic time span arguments to the stats service (Manos Dimos)
+ -- Miquel Martos <miquel.martos@guifi.net>  Thu, 07 Dec 2015 10:40:03 +0200
+
 snpservices (0.2.2-6) guifi; urgency=low
 
   * Add a plus sign (+) to the FollowSymLinks option. This is required in Apache from version 2.4 on: (Roger Pueyo)
