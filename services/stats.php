@@ -18,9 +18,9 @@ function stats_info() {
 	echo "  traffic_start=-<time>\n";
 	echo "    <time> = negative number, in seconds, from when the graph starts\n";
 	echo "    default value = -31536000 (1 year)\n";
-	echo "  traffi_end=-<time>\n";
+	echo "  traffic_end=-<time>\n";
 	echo "    <time> = negative number, in seconds, from when the graph ends\n";
-	echo "    default value = -300 (1/2 hour)\n";
+	echo "    default value = -300 (5 mins)\n";
 	echo "\n";
 }
 
