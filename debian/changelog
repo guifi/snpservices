@@ -1,3 +1,8 @@
+snpservices (0.2.3-1) ubuntu; urgency=low
+
+  * Modified dependencies for Ubuntu 16. + and debian9
+ -- Miquel Martos <miquel.martos@guifi.net>  Sun, 05 Nov 2017 22:17:03 +0200
+
 snpservices (0.2.2-9) guifi; urgency=low
 
   * Fix refresh mrtg wait time.
