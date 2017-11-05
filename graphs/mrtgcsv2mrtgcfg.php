@@ -124,9 +124,9 @@ print "ServerId: ".$SNPGraphServerId."\n";
 # range 60..90 depends on $SNPGraphServerId mod 30
 # if is still fresh, does not even looks to the server to check if it has changed
 #
-$secs = 0;
+
 $mins = $SNPGraphServerId % 30;
-$nanos = $SNPGraphServerId % 10;
+
 if (($last) and ($now < ($last +  ((60 + $mins) * 60)))) {
   fclose($mlast);
   echo "Still fresh.\n";
@@ -152,12 +152,12 @@ print "Sever CNML dated as: ".date('Y/m/d H:i:s',$last_now)."\n";
 
 #
 # Server CNML has changed, so going to call the server for the new file
-# Befoge calling, sleep $SNPGrahServerId mod 285 (4 min, 45 segs) to spread across that
+# Befoge calling, sleep last SNPGrahServerId two digits to spread across that
 # timeslot.
 #
-
-print "Waiting for  ".$secs.".".$nanos." seconds\n";
-time_nanosleep($secs,($nanos * 10000000));
+$secs = substr($SNPGraphServerId,-2,2);
+echo "Sleeping for ".$secs." seconds to avoid server peaks.\n";
+sleep($secs);
 print date('Y/m/d H:i:s')."\n";
 
 $hf = @fopen($MRTGConfigSource."&version=3","r") or die("Error reading MRTG csv input\n");

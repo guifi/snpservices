@@ -144,8 +144,14 @@ EOT
 
         if [ -d "/etc/apache2/conf-available" ]
         then
-          mv /etc/apache2/conf.d/snpservices.conf /etc/apache2/conf-available/snpservices.conf
-         /usr/sbin/a2enconf snpservices
+          if [ -f "/etc/apache2/conf.d/snpservices.conf" ]
+          then
+            mv /etc/apache2/conf.d/snpservices.conf /etc/apache2/conf-available/snpservices.conf
+            /usr/sbin/a2enconf snpservices
+          
+
+
+fi
         fi
 
 	if /bin/pidof /usr/sbin/apache2 >/dev/null 2>&1; then

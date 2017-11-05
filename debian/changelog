@@ -1,3 +1,12 @@
+snpservices (0.2.2-9) guifi; urgency=low
+
+  * Fix refresh mrtg wait time.
+ -- Miquel Martos <miquel.martos@guifi.net>  Wed, 23 Mar 2016 00:01:03 +0200
+
+snpservices (0.2.2-8) guifi; urgency=low
+  * Corrects info default end is 5 mins
+ -- Miquel Martos <miquel.martos@guifi.net>  Mon, 08 Dec 2015 21:40:03 +0200
+
 snpservices (0.2.2-7) guifi; urgency=low
 
   * Adds traffic time span arguments to the stats service (Manos Dimos)
