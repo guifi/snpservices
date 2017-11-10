@@ -92,24 +92,24 @@ while ( $buffer = fgets($hf, 4096) ) {
 fclose($hf);
 fclose($cf);
 }
-
-if ($argv[1]=="CACHE") {
-  if (file_exists('/tmp/blacklist.ips')) { 
-    $blacklist_time = filemtime('/tmp/blacklist.ips');
-    if (file_exists('../data/mrtg.cfg')) {
-       $mrtg_time = filemtime('../data/mrtg.cfg');
-    } else {
-       $mrtg_time = 0;
-       echo "No mrtg.cfg file present, refreshing...\n";
+if (isset($argv[1])) {
+  if ( $argv[1] == "CACHE" ) {
+    if (file_exists('/tmp/blacklist.ips')) {
+      $blacklist_time = filemtime('/tmp/blacklist.ips');
+      if (file_exists('../data/mrtg.cfg')) {
+         $mrtg_time = filemtime('../data/mrtg.cfg');
+      } else {
+         $mrtg_time = 0;
+         echo "No mrtg.cfg file present, refreshing...\n";
+      }
+      if ($blacklist_time > $mrtg_time)
+        mrtgcfg_from_mrtgcsv($rrdtool_header,$rrdimg_path,$rrddb_path,$mrtg_traffic_template,$mrtg_ping_template);
+      else
+        echo "MRTG.cfg is uptated $blacklist_time - $mrtg_time with the current blacklist\n";
     }
-    if ($blacklist_time > $mrtg_time)
-      mrtgcfg_from_mrtgcsv($rrdtool_header,$rrdimg_path,$rrddb_path,$mrtg_traffic_template,$mrtg_ping_template);
-    else
-      echo "MRTG.cfg is uptated $blacklist_time - $mrtg_time with the current blacklist\n";
+    exit();
   }
-  exit();
 }
-
 $now = time();
 $mlast= @fopen("/tmp/last_mrtg", "r");
 if ($mlast)
@@ -148,7 +148,7 @@ if (($hlast) and ($last_now == fgets($hlast))) {
   fclose($hlast);
   exit();
 }
-print "Sever CNML dated as: ".date('Y/m/d H:i:s',$last_now)."\n";
+print "Sever CNML dated as: ".date('Y/m/d H:i:s', (int) $last_now)."\n";
 
 #
 # Server CNML has changed, so going to call the server for the new file

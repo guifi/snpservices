@@ -4,7 +4,7 @@
  *
  * Main call to CNML services
  */
- 
+
 // Common Bootstrap
 if (file_exists('common/config.php'))
   include_once("common/config.php");
@@ -13,7 +13,7 @@ else
 
 include_once("common/misc.php");
 
-$VERSION = '2.0';
+$VERSION = '0.2.3';
 
 function call_service($service) {
 	if (file_exists('services/'.$service.'.php'))
@@ -22,9 +22,9 @@ function call_service($service) {
     header("Content-Type: text/plain");
     echo "ERROR: Service $service unknown\n";
     getHelp();
-    exit;	
+    exit;
 	}
-	
+
   if (isset($_GET['info'])) {
     header("Content-Type: text/plain");
     if (function_exists($service.'_info'))
@@ -33,7 +33,7 @@ function call_service($service) {
       echo "No information available for $service\n";
     exit;
   }
-  
+
   if (function_exists($service.'_main'))
     call_user_func($service.'_main');
   else
@@ -46,7 +46,7 @@ function getServerInfo() {
 	global $rootZone;
 	global $rrdtool_version;
 	global $CNMLSource;
-	
+
   header("Content-Type: text/plain");
 	echo "CNML services version $VERSION at ";
 	echo exec('uname -a');
@@ -60,14 +60,14 @@ function getServerInfo() {
 	echo "rrdtool version: ";
 	echo exec("rrdtool|head -1|cut -f 2 -d' '");
 	echo "  set to: $rrdtool_version \n";
-	
+
 	echo "\n";
-	
+
 }
 
 function getHelp() {
 	global $VERSION;
-	
+
 	echo "CNML services\n";
 	echo "Version: ".$VERSION."\n";
   echo "USAGE:\n" .
@@ -90,8 +90,8 @@ function getHelp() {
   		"\n";
   echo "Available services:\n";
   $fservices = glob('services/*.php');
-  
-  foreach ($fservices as $fservice) 
+
+  foreach ($fservices as $fservice)
   	$services[] .= basename($fservice,'.php');
   echo implode('|',$services);
   echo "\n\nServices description:\n\n";
@@ -112,14 +112,14 @@ if (!isset($_GET['call'])) {
   exit;
 } else
   $service = $_GET['call'];
-  
-  
+
+
 switch ($service) {
 	case 'version':
     header("Content-Type: text/plain");
 	  echo $VERSION;
 	  exit;
-	case 'help':	
+	case 'help':
     header("Content-Type: text/plain");
     getHelp();
     break;
@@ -132,5 +132,5 @@ switch ($service) {
     call_service($service);
 }
 
- 
+
 ?>

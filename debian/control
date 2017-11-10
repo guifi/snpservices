@@ -7,7 +7,7 @@ Standards-Version: 3.7.2
 
 Package: snpservices
 Architecture: all
-Depends: ${misc:Depends}, apache2, php, php-cli, php-gd, rrdtool, librrdp-perl, librrds-perl, mrtg-rrd, traceroute, libapache2-mod-php
+Depends: ${misc:Depends}, apache2, php, php-cli, php-gd, rrdtool, librrdp-perl, librrds-perl, mrtg-rrd, traceroute, libapache2-mod-php, php-xml
 Description: This software provides graph services in the context of the 
  Spontaneous Networkink Platform.
  .
