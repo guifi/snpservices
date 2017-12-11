@@ -1,3 +1,8 @@
+snpservices (0.2.3-5) ubuntu; urgency=low
+
+  * Remove unnecessary dependence (mrtg-rrd)
+ -- Miquel Martos <miquel.martos@guifi.net>  Sun, 11 Dec 2017 23:05:03 +0200
+
 snpservices (0.2.3-4) ubuntu; urgency=low
 
   * Fix dependencies (php-xml)
