@@ -115,21 +115,28 @@ if (!isset($_GET['call'])) {
 
 
 switch ($service) {
-	case 'version':
-    header("Content-Type: text/plain");
-	  echo $VERSION;
-	  exit;
-	case 'help':
-    header("Content-Type: text/plain");
-    getHelp();
-    break;
-  case 'phpinfo':
-    echo phpinfo();
-    break;
-  case 'serverinfo':
-    echo getServerInfo();
-    break;  default:
-    call_service($service);
+    case 'version':
+        header("Content-Type: text/plain");
+        echo $VERSION;
+        exit;
+    case 'help':
+        header("Content-Type: text/plain");
+        getHelp();
+        break;
+    case 'phpinfo':
+        //echo phpinfo();
+        //break;
+    case 'serverinfo':
+        //echo getServerInfo();
+        //break;
+    case 'disabled':
+        echo "This call is disabled for security reasons. " .
+        "See <a href=\"https://github.com/guifi/snpservices/issues/6\">" .
+        "https://github.com/guifi/snpservices/issues/6</a> " .
+        "for more details.";
+        break;
+    default:
+        call_service($service);
 }
 
 
