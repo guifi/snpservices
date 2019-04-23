@@ -1,3 +1,13 @@
+snpservices (0.2.4-2) ubuntu; urgency=low
+
+  * add logrotate dependence.
+ -- Miquel Martos <miquel.martos@guifi.net>  Thu, 23 Apr 2019 09:43:03 +0200
+
+snpservices (0.2.4-1) ubuntu; urgency=low
+
+  * add mrtg dependence.
+ -- Miquel Martos <miquel.martos@guifi.net>  Thu, 19 Apr 2018 22:27:03 +0200
+
 snpservices (0.2.3-5) ubuntu; urgency=low
 
   * Remove unnecessary dependence (mrtg-rrd)
